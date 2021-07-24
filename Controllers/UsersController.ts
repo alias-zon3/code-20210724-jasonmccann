@@ -1,21 +1,51 @@
-import { Request, Response } from 'express';
+import express, { Request, Response } from "express";
+import { BmiService } from "../Services/BmiService";
 
-//Default index to return message letting us know the controller is working
-exports.users_get_index = (req: Request, res: Response) => {
-    res.status(200).send('Successfully serving from UserController!')
+class UsersController {
+  public path = "/users";
+  public router = express.Router();
+
+  private _bmiService: BmiService = new BmiService();
+
+  constructor() {
+    this.initialiseRoutes();
+  }
+
+  private initialiseRoutes() {
+    //GET user home page - success message
+    this.router.get("/", this.getIndex);
+
+    //GET request count of users using BmiCategory string
+    this.router.get("/count/:bmiCategory", this.getUsersCount);
+
+    //POST create a user using dto
+    this.router.post("/add/", this.postCreateUser);
+
+    //POST populate and return a fully formed user model
+    this.router.get("/calc", this.postCalculateUserBmi);
+  }
+
+  //Default index to return message letting us know the controller is working
+  getIndex = (req: Request, res: Response) => {
+    res.status(200).send("Successfully serving from UserController!");
+  };
+
+  //Get the count of users for a given BmiCategory
+  getUsersCount = (req: Request, res: Response) => {
+    var count = this._bmiService.getUserCount(req.body);
+
+    res.status(200).send(count);
+  };
+
+  //Take a user info and create a new user in the database
+  postCreateUser = (req: Request, res: Response) => {
+    res.send(`Not implemented: POST /user/add`);
+  };
+
+  //Take a user info and return a fully populated user model object
+  postCalculateUserBmi = (req: Request, res: Response) => {
+    res.send("Not implemented: POST /user/calc");
+  };
 }
 
-//Get the count of users for a given BmiCategory
-exports.users_get_userCount = (req: Request, res: Response) => {
-    res.send('Not Implemented: GET /user/count/{BmiCategory}');
-};
-
-//Take a user info and create a new user in the database
-exports.users_post_createUser = (req: Request, res: Response) => {
-    res.send(`Not implemented: POST /user/add`);
-};
-
-//Take a user info and return a fully populated user model object
-exports.users_post_calcUserBmi = (req: Request, res: Response) => {
-    res.send('Not implemented: POST /user/calc');
-};
+export default UsersController;
