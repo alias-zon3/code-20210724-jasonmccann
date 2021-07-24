@@ -3,9 +3,15 @@ import express, { Request, Response, NextFunction } from "express";
 
 import { UserDto } from "./DTOs/UserDto";
 
+//Add required routes
+var userRouter = require('./Routes/Users');
+
 //Construct our single express instance and define the port we want to use
 const app = express();
 const port = 3000;
+
+//Register our routes
+app.use('/user', userRouter);
 
 //Create local static data (TEMP)
 const getUserData = (req: Request, res: Response, next: NextFunction) => {
