@@ -7,5 +7,13 @@ export class UserModel implements IUserInfo {
     heightCm: number;
     weightKg: number;
     bmi: number;
-    bmiCategoryId: number;
+    bmiCategory: string;
+    healthRisk: string;
+
+    //Custom constructor using optional user info interface to map properties over, defaulting if required
+    constructor(userInfo?: IUserInfo) {
+        this.gender = userInfo.gender || "unknown";
+        this.heightCm = userInfo.heightCm || undefined;
+        this.weightKg = userInfo.weightKg || undefined;
+    }
   }
