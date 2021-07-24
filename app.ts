@@ -7,5 +7,5 @@ const port = 3000;
 
 //Start a basic application which does nothing but log for the time being
 app.listen(port, () => {
-    console.log(`Currently listening on port ${port}`)
+    console.log(`Currently listening on port ${port}`);
 });
