@@ -15,8 +15,8 @@ export class BmiCalculator{
     //I wanted some sort of validation, this could be split out into per field validation or using a Validator class but for simplicity at this point I'm keeping it as a single private method in this class
     private static validateHeightWeight(heightCm: number, weightKg: number) {
         //Validate height
-        if(heightCm === null) {
-            throw new Error(`heightCm parameter must not be null`);
+        if(!heightCm) {
+            throw new Error(`heightCm parameter must be provided`);
         }
 
         if(heightCm <= 15) {
@@ -30,8 +30,8 @@ export class BmiCalculator{
         }
 
         //Validate weight
-        if(weightKg === null) {
-            throw new Error(`weightKg parameter must not be null`);
+        if(!weightKg) {
+            throw new Error(`weightKg parameter must be provided`);
         }
 
         if(weightKg <= 0.5) {
@@ -41,7 +41,7 @@ export class BmiCalculator{
 
         if(weightKg > 350) {
             //Assuming that nobody using this calculator will weigh more than 350kg
-            throw new Error(`Weight must not exceed 300 - this is an unrealistic weight!`);
+            throw new Error(`Weight must not exceed 350kg - this is an unrealistic weight!`);
         }
     }
 }

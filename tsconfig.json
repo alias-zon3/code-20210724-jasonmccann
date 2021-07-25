@@ -4,5 +4,9 @@
     "target": "es6",
     "rootDir": "./",
     "esModuleInterop": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }
