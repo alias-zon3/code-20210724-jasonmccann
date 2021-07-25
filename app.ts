@@ -16,22 +16,13 @@ var usersController = new UsersController();
 //Register our routes using the controller and path
 app.use(usersController.path, usersController.router);
 
-//Create local static data (TEMP)
-const getUserData = (req: Request, res: Response, next: NextFunction) => {
-  let users: UserDto[] = [
-    { gender: "Male", heightCm: 171, weightKg: 96 },
-    { gender: "Male", heightCm: 161, weightKg: 85 },
-    { gender: "Male", heightCm: 180, weightKg: 77 },
-    { gender: "Female", heightCm: 166, weightKg: 62 },
-    { gender: "Female", heightCm: 150, weightKg: 70 },
-    { gender: "Female", heightCm: 167, weightKg: 82 },
-  ];
-
-  res.status(200).json(users);
+//Create endpoint to return static data
+const serverRunningMessage = (req: Request, res: Response, next: NextFunction) => {
+  res.status(200).send("The server is running!");
 };
 
 //Define get endpoint to return static data using our function above
-app.get("/getData", getUserData);
+app.get("/", serverRunningMessage);
 
 //Start the application on our desired port
 app.listen(port, () => {

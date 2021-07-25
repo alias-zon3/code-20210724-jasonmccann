@@ -41,6 +41,10 @@ export class BmiDatabase {
     return matchedUser;
   }
 
+  allUsers(): User[] {
+    return this.state.users;
+  }
+
   countUsersByBmiCategory(category: BmiCategory): number {
     if (!category) {
       throw new Error(`A bmi category is required`);
@@ -54,17 +58,27 @@ export class BmiDatabase {
   }
 
   getCategoryByString(category: string): BmiCategory {
-      if(!category) {
-          throw new Error(`A category must be provided`);
-      }
+    if (!category) {
+      throw new Error(`A category must be provided`);
+    }
 
-      var matchingCategory = this.state.bmiCategories.find(cat => cat.description == category);
+    var matchingCategory = this.state.bmiCategories.find(
+      (cat) => cat.description == category
+    );
 
-      if(!matchingCategory) {
-          throw new Error(`No matching bmi category for query: ${category}`);
-      }
+    if (!matchingCategory) {
+      throw new Error(`No matching bmi category for query: ${category}`);
+    }
 
-      return matchingCategory;
+    return matchingCategory;
+  }
+
+  getAllHealthRisks(): HealthRisk[] {
+    return this.state.healthRisks;
+  }
+
+  getAllBmiCategories(): BmiCategory[] {
+    return this.state.bmiCategories;
   }
 
   public resetState() {
@@ -72,10 +86,67 @@ export class BmiDatabase {
   }
 
   private newState(): IBmiDatabaseState {
+    //Add seed data for BmiCategory and HealthRisk that conform to what we know based on spec sheet
     return {
       users: [],
-      bmiCategories: [],
-      healthRisks: [],
+      bmiCategories: [
+        {
+          id: 1,
+          description: "Underweight",
+          minBmi: undefined,
+          maxBmi: 18.4,
+          HealthRiskId: 1,
+          HealthRisk: { id: 1, description: "Malnutrition risk" },
+        },
+        {
+          id: 2,
+          description: "Normal weight",
+          minBmi: 18.5,
+          maxBmi: 24.9,
+          HealthRiskId: 2,
+          HealthRisk: { id: 2, description: "Low risk" },
+        },
+        {
+          id: 3,
+          description: "Overweight",
+          minBmi: 25,
+          maxBmi: 29.9,
+          HealthRiskId: 3,
+          HealthRisk: { id: 3, description: "Enhanced risk" },
+        },
+        {
+          id: 4,
+          description: "Moderately obese",
+          minBmi: 30,
+          maxBmi: 34.9,
+          HealthRiskId: 4,
+          HealthRisk: { id: 4, description: "Medium risk" },
+        },
+        {
+          id: 5,
+          description: "Severely obese",
+          minBmi: 35,
+          maxBmi: 39.9,
+          HealthRiskId: 5,
+          HealthRisk: { id: 5, description: "High risk" },
+        },
+        {
+          id: 6,
+          description: "Very severely obese",
+          minBmi: 40,
+          maxBmi: undefined,
+          HealthRiskId: 6,
+          HealthRisk: { id: 6, description: "Very high risk" },
+        },
+      ],
+      healthRisks: [
+        { id: 1, description: "Malnutrition risk" },
+        { id: 2, description: "Low risk" },
+        { id: 3, description: "Enhanced risk" },
+        { id: 4, description: "Medium risk" },
+        { id: 5, description: "High risk" },
+        { id: 6, description: "Very high risk" },
+      ],
     };
   }
 }

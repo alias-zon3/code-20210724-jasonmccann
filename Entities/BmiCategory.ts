@@ -4,6 +4,8 @@ import { HealthRisk } from "./HealthRisk";
 export class BmiCategory {
     id: number;
     description: string;
+    minBmi?: number;
+    maxBmi?: number;
     HealthRiskId: number;
     HealthRisk: HealthRisk;
   }
